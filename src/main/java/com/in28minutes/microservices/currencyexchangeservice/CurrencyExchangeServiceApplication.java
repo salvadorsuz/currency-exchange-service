@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import com.in28minutes.errorhandler.CustomizedResponseEntityExceptionHandler;
 
+import brave.sampler.Sampler;
+
 @SpringBootApplication
 @EnableEurekaClient
 public class CurrencyExchangeServiceApplication {
@@ -19,4 +21,9 @@ public class CurrencyExchangeServiceApplication {
     public CustomizedResponseEntityExceptionHandler exceptionHandler() {
         return new CustomizedResponseEntityExceptionHandler();
     }
+	
+	@Bean
+	public Sampler defaultSampler() {
+		return Sampler.ALWAYS_SAMPLE;
+	}
 }

@@ -1,5 +1,7 @@
 package com.in28minutes.microservices.currencyexchangeservice.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import com.in28minutes.microservices.currencyexchangeservice.service.ExchangeVal
 @RequestMapping("/currency-exchange")
 public class CurrencyExchangeController {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private ExchangeValueService exchangeValueService;
 	
@@ -25,7 +28,11 @@ public class CurrencyExchangeController {
 
 	@GetMapping("/from/{from}/to/{to}")
 	public ExchangeValueBean retrieveExchangeValue(@PathVariable String from, @PathVariable String to){
-		return exchangeValueService.retrieveExchangeValue(from, to);
+		ExchangeValueBean out = exchangeValueService.retrieveExchangeValue(from, to);
+		
+		logger.info("{}", out);
+		
+		return out;
 	}
 
 }
